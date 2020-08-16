@@ -1,0 +1,11 @@
+mat-toolbar{
+    background: none !important;
+    z-index: 1;
+}
+
+.logo{
+    cursor: pointer;
+    padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+    border-radius: 30px;
+    /* color: #275fff; */
+}

@@ -1,0 +1,63 @@
+
+<div class="headers">
+    <h2 *ngIf="pageAction=='signupForm'">Join Us</h2>
+    <h2 *ngIf="pageAction == 'signed up'">Hi {{name}}, welcome aboard</h2>
+    <h2 *ngIf="pageAction == 'error'">Sorry {{name}}, there was an error. <br> Please try later</h2>
+</div>
+
+<form *ngIf="pageAction == 'signupForm'" [formGroup]="signupForm" (ngSubmit)="onSignup()" fxLayout="column" class="signup-form">
+
+    <mat-form-field color="primary">
+        <mat-label>First Name</mat-label>
+        <input type="text" matInput placeholder="Ex: Jane" formControlName="firstName">
+        <mat-error *ngIf="signupForm.get('firstName').invalid">Please enter your first name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input type="text" matInput placeholder="Ex: Doe" formControlName="lastName">
+        <mat-error *ngIf="signupForm.get('lastName').invalid">Please enter your last name</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput placeholder="Ex: jane.doe@abcd.com" formControlName="email">
+        <mat-icon matSuffix *ngIf="signupForm.get('email').valid" class="check">done</mat-icon>
+        <mat-error *ngIf="signupForm.get('email').invalid && !signupForm.get('email').errors.errorMessage">Please enter a valid email</mat-error>
+        <mat-error *ngIf="signupForm.get('email').errors && signupForm.get('email').errors.errorMessage=='Email already exists'">Email already exists. Please enter a different email</mat-error>
+        <mat-error *ngIf="signupForm.get('email').errors && signupForm.get('email').errors.errorMessage=='Wrong email'">Please enter a valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Ex: abcd@!123" formControlName="password">
+        <button type="button" mat-icon-button matSuffix (click)="showOrHidePassword()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signupForm.get('password').invalid">Please enter a password</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">
+        Sign Up
+    </button>
+
+</form>
+
+<div fxLayout="column" *ngIf="pageAction!='signupForm'" fxLayoutAlign = "center center">
+    <mat-spinner *ngIf="pageAction=='signing in'" color="primary"></mat-spinner>
+    <div class="circle" fxLayoutAlign = "center center" *ngIf="pageAction=='signed up'">
+        <mat-icon class="doneOrError check" [@signInConfirm]="pageAction=='signed up'?'signedUp':'signingIn'">done</mat-icon>
+    </div>
+    <div class="circle" fxLayoutAlign = "center center" *ngIf="pageAction=='error'">
+        <mat-icon class="doneOrError" [@signInConfirm]="pageAction=='error'?'signedUp':'signingIn'" color="warn">clear</mat-icon>
+    </div>
+    <br>
+    <button mat-mini-fab (click)="goBack()" *ngIf="pageAction=='error' || pageAction=='signed up'">
+        <mat-icon>keyboard_backspace</mat-icon>
+        Go back
+    </button>
+</div>
+
+
+
+

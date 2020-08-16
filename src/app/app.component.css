@@ -1,0 +1,51 @@
+.container{
+    height: 100vh;
+}
+
+.bg-invert{
+    background: rgb(39,95,255);
+    background: linear-gradient(38deg, rgba(39,95,255,1) 39%, rgba(167,189,255,1) 100%);
+}
+
+.bubble-image{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: inherit;
+    /* max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain; */
+}
+
+.bubble-container-image{
+    position:absolute; 
+    width: 100%;
+    max-height: 100%;
+    top: 0; right: 0; 
+    z-index: -1;
+}
+
+.signup-form {
+    width: 90%;
+    z-index: 1;
+    animation: fadeinAnimation ease-in 1s;
+}
+
+@keyframes fadeinAnimation {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.small-width {
+    width: 70%;
+}
+
+
+
